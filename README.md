@@ -2,7 +2,7 @@ Reproducer for unexpected EOFs with "httputil: ReverseProxy read error during bo
 logs in queue-proxy.
 
 * _Set GOPATH_
-* _Install go (Makefile expect ${GOPATH}/bin/ko to exist)_
+* _Install ko (Makefile expect ${GOPATH}/bin/ko to exist)_
 * `make apply-receiver-ksvc`
 * _wait a bit_
 * `make apply-sender-ksvc`
