@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sender-k8s
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sender-k8s
+  namespace: sender-k8s
+  labels:
+    app: sender-k8s
+spec:
+  selector:
+    matchLabels:
+      app: sender-k8s
+  template:
+    metadata:
+      labels:
+        app: sender-k8s
+    spec:
+      containers:
+        - args:
+          - --sink
+          - "http://receiver-k8s.receiver-k8s.svc.cluster.local"
+          image: ko://github.com/maschmid/queue-proxy-use-of-closed-network-connection-error/sender
+          name: user-container

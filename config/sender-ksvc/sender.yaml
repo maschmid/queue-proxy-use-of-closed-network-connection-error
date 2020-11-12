@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sender-ksvc
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: sender-ksvc
+  namespace: sender-ksvc
+  labels:
+    app: sender-ksvc
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: "1"
+        autoscaling.knative.dev/minScale: "1"
+    spec:
+      containers:
+        - args:
+            - --sink
+            - "http://receiver-ksvc.receiver-ksvc.svc.cluster.local"
+          image: ko://github.com/maschmid/queue-proxy-use-of-closed-network-connection-error/sender
+          name: user-container
