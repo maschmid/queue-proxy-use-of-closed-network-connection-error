@@ -57,14 +57,14 @@ func send(sink string) {
 
 	defer resp.Body.Close()
 
-	if resp.StatusCode != 200 {
-		log.Printf("status %d not OK!", resp.StatusCode)
-		return
-	}
-
 	body, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Printf("error reading body: %v", err)
+		return
+	}
+
+	if resp.StatusCode != 200 {
+		log.Printf("status %d not OK!", resp.StatusCode)
 		return
 	}
 
